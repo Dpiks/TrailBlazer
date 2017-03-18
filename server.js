@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var handlebars = require("express-handlebars");
 var request = require("request");
 var unirest = require('unirest');
+var axios=require('axios');
 
 var app = express();
 
@@ -45,7 +46,10 @@ db.sequelize.sync({ force: true }).then(function() {
             .header("X-Mashape-Key", "1EUZc9Yh0Dmsh3NULqLjzLCBf7rsp1iedcgjsnE14nUri24ZVA")
             .header("Accept", "text/plain")
             .end(function(result) {
-            	console.log(result.body);
+            	 console.log(result.body.places.length);
+            	// var data=result.body;
+            	// for(var i=0;i<data.places)
+            	// console.log(result.body.places[0]);
                 // console.log(result.body[0].places.length);
                 // console.log(result.body.places.length);
                 // console.log(result.body.places.length);
