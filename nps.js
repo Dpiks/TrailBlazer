@@ -23,18 +23,26 @@ function NPSaxios(req, res) {
         	var filter = parkFilter(result.data.data);
 
             
-            for(i=0; i < filter.length; i++){
-            	res.append('park code = '+ filter[i].parkCode + "     "+ 
-            		'park code = '+ filter[i].parkCode+ "     "+
-            		'weather info = '+ filter[i].weatherInfo+ "     "+
-            		'state = '+ filter[i].states+ "     "+
-            		'latLong= '+ filter[i].latLong);
-            	// console.log('park code = '+ filter[i].parkCode);
-            	// console.log('full name = '+ filter[i].fullName);
-            	// console.log('weather info = '+ filter[i].weatherInfo);
-            	// console.log('state = '+ filter[i].states);
-            	// console.log('latLong= '+ filter[i].latLong);
+            for(i=0; i < filter.length; i++){ 
+               var latLong = filter[i].latLong.split(",");
+               console.log("latLong" + latLong);
+               var latitude = latLong[0].split(":");
+               latitude = latitude[1];
+               var longitude = latLong[1].split(":");
+               longitude = longitude[1];
 
+               db.Park.create({
+                   park_parkCode: filter[i].parkCode,
+                   park_name: filter[i].fullName,
+                   description: filter[i].description,
+                   latitude: latitude,
+                   longitude: longitude,
+                   state: fitler[i].states,
+                   directions_info: filter[i].directionsInfo,
+                   url: filter[i].url,
+                   directions_url: filter[i].directionsUrl,
+                   weather_info: filter[i].weatherInfo
+               })
             }
             
         });
